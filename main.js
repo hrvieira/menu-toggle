@@ -6,6 +6,17 @@ function toggleMenu(event) {
   // classList = listar todas as classes
   // toggle = adicione caso não tenha / remova caso tenha
   nav.classList.toggle('active');
+
+  const active = nav.classList.contains('active');
+  event.currentTarget.setAttribute('aria-expanded', active);
+
+  /* ajustando acessibilidade para o menu ativo/desativo */
+  if (active){
+    event.currentTarget.setAttribute('aria-label', 'Fechar menu');
+  } else {
+    event.currentTarget.setAttribute('aria-label', 'Abir menu');
+  }
+  
 }
 
 btnMobile.addEventListener('click', toggleMenu);
