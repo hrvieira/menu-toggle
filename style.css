@@ -1,0 +1,130 @@
+body,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+
+a:hover {
+  background: rgba(0, 0, 0, .05);
+}
+
+#logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#header {
+  box-sizing: border-box;
+  height: 70px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #E7E7E7;
+}
+
+#menu {
+  display: flex;
+  list-style: none;
+  /* novo modo de espaçamento */
+  gap: .5rem;
+}
+
+#menu a {
+  display: block;
+  padding: .5rem;
+}
+
+#btn-mobile {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  #btn-mobile {
+    display: flex;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    gap: .5rem;
+  }
+
+  #menu {
+    display: block;
+    position: absolute;
+    /* quando a position é absolute, tenho que dizer qual a largura(width) do elemento */
+    width: 100%;
+    top: 70px;
+    right: 0;
+    background: #E7E7E7;
+    /* usando heigth e transition, faz com que o menu cresça ao invés de abrir de uma vez */
+    height: 0;
+    transition: .6s;
+    /* usando z-index para caso haja elementos abaixo, ele fique por cima */
+    z-index: 1000;
+    /* como o menu já está na tela e caso fosse usado display: none afetaria a transição, foi usado o visibility: hidden */
+    visibility: hidden;
+    /* usando overflow para esconder os elementos, enquanto não tiver o tamanho necessário */
+    overflow-y: hidden;
+  }
+
+  #nav.active #menu {
+    /* 100vh para que a altura ocupe 100% da tela */
+    /* para que não tenha que rolar, foi usado -70px, para retirar a desconsiderar a altura de top */
+    height: calc(100vh - 70px);
+    /* para que o menu apareça quando ativo, usa o visible */
+    visibility: visible;
+    /* quando o overflow não for automatico, ele bloqueia a tela, não dando pra ver outros itens caso haja */
+    overflow-y: auto;
+  }
+
+  #menu a {
+    padding: 1rem 0;
+    margin: 0 1rem;
+    border-bottom: 2px solid rgba(0, 0, 0, .05);
+  }
+
+  /* criando o ícone */
+  #hamburger {
+    border-top: 2px solid;
+    width: 20px;
+
+  }
+
+  #hamburger::after,
+  #hamburger::before {
+    display: block;
+    content: '';
+    /* currentColor usa a cor de seu elemento principal, no caso #hamburguer */
+    background: currentColor;
+    width: 20px;
+    height: 2px;
+    margin-top: 5px;
+    /* usado para poder suavizar a troca de menu aberto pra fechado */
+    transition: .3s;
+    position: relative;
+  }
+
+  #nav.active #hamburger {
+    /* usando transparent para que o primeiro traço suma quando ativo */
+    border-top-color: transparent;
+  }
+
+  /* criando o x */
+  #nav.active #hamburger::before {
+    transform: rotate(135deg);
+  }
+
+  #nav.active #hamburger::after {
+    transform: rotate(-135deg);
+    top: -7px;
+
+  }
+}
